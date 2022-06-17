@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSC-JS</title>
+</head>
+<body>
+    <main>
+        <h1>GSC-JS</h1>
+        <section id="app">
+
+        </section>
+    </main>
+    <script src="./gscjs.js"></script>
+    <script>
+        const app = document.querySelector("#app");
+        const h1 = GSCJS.crearNodo("H1","soy un h1");
+        app.appendChild(h1);
+    </script>
+</body>
+</html>
