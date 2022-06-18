@@ -13,11 +13,17 @@
 
         </section>
     </main>
-    <script src="./gscjs.js"></script>
+    <script src="gscjs.js"></script>
     <script>
-        const app = document.querySelector("#app");
-        const h1 = GSCJS.crearNodo("H1","soy un h1");
-        app.appendChild(h1);
+        const app = GSCJS.queryOnly("#app");
+        const fragmento = GSCJS.crearFragmento();
+        
+        for (let i = 1; i < 6 ; i++) {
+            const element = GSCJS.crearNodo(`H${i}`,`Soy una etiqueta H${i}`);
+            fragmento.appendChild(element);            
+        }
+
+        app.appendChild(fragmento);
     </script>
 </body>
 </html>
