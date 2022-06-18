@@ -47,6 +47,14 @@ const GSCJS = {
     const response = targetObjet.classList.contain(classname);
     return response;
   },
+  /**
+   * 
+   * @returns documentfragment
+   */
+  crearFragmento: function fragmento (){
+    const documentFragement = document.createDocumentFragment();
+    return documentFragement;
+  }
 };
 
 
