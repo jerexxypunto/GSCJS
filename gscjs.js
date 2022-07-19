@@ -47,6 +47,24 @@ const GSCJS = {
     const response = targetObjet.classList.contain(classname);
     return response;
   },
+  // Retorna toda la URL
+  getURL: function getURL() {
+    const url = location.href;
+    return url;
+  },
+  // Retorna la ruta del URL (lo que le sigue a la extención midominio.com/ruta)
+  getURLpath: function getURLpath() {
+    const url = location.pathname;
+    return url;
+  },
+  // Retorna el hash
+  getURLhash: function getURLhash() {
+    let url = location.hash;
+    if(url == ''){
+      url = undefined;
+    }
+    return url;
+  },
   /**
    * 
    * @returns documentfragment
