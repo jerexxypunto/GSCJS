@@ -52,6 +52,11 @@ const GSCJS = {
     const url = location.href;
     return url;
   },
+  // Retorna solo la URL
+  getURLorigin: function getURLorigin() {
+    const url = location.origin;
+    return url;
+  },
   // Retorna la ruta del URL (lo que le sigue a la extención midominio.com/ruta)
   getURLpath: function getURLpath() {
     const url = location.pathname;
