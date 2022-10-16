@@ -77,8 +77,28 @@ const GSCJS = {
   crearFragmento: function fragmento (){
     const documentFragement = document.createDocumentFragment();
     return documentFragement;
-  }
+  },
+
+
 };
 
 
-  
+async function gscFetch (url, callback, mode){
+  const get = await fetch(url);
+  let response;
+  switch (mode) {
+    case "json":
+      response = await get.json();
+      break;
+    case "blob":
+      response = await get.blob();
+      break;
+    default:
+      response = await get.text();
+      break;
+  }
+  callback(response);
+}
+
+const gscConsole = (e) => console.log(e);
+
