@@ -12,12 +12,19 @@
         <section id="app">
 
         </section>
+        <article>
+            <h4 class="item-count" data-gsc-count="10">0</h4>
+            <h4 class="item-count-1" data-gsc-count="100">0</h4>
+        </article>
     </main>
     <script src="gscjs.js"></script>
     <script>
         const app = GSCJS.queryOnly("#app");
         const fragmento = GSCJS.crearFragmento();
         
+        GSCJS.setCounter(GSCJS.queryOnly(".item-count"),10);
+        GSCJS.setCounter(GSCJS.queryOnly(".item-count-1"),10);
+
         for (let i = 1; i < 6 ; i++) {
             const element = GSCJS.crearNodo(`H${i}`,`Soy una etiqueta H${i}`);
             fragmento.appendChild(element);            

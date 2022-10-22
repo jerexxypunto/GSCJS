@@ -1,6 +1,4 @@
 const GSCJS = {
-  autor: "Jeremías San Martín",
-  web: "https://gscdesigns.net/",
   /**
    * Selecciona un solo elemento en le documeneto
    * @param {nodeHTML} element
@@ -83,6 +81,17 @@ const GSCJS = {
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
     results = regex.exec(location.search);
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+},
+setCounter : function setCounter(nodoTarget,time){
+  const finalCount = parseInt(nodoTarget.getAttribute("data-gsc-count"));
+  let currentCount = 0;
+  const counter = setInterval(() => {
+    if(currentCount > 0){
+      nodoTarget.textContent = currentCount;
+      if(currentCount == finalCount) clearInterval(counter);
+    }
+    currentCount++;
+  }, time);
 }
 
 
