@@ -11,7 +11,7 @@ const GSCJS = {
   /**
    * Toma un nodeList del DOM y retorna un
    * Array con todos sus elementos.
-   * 
+   *
    * @param {NodeList} element
    * @returns {Array}
    */
@@ -63,43 +63,47 @@ const GSCJS = {
   // Retorna el hash
   getURLhash: function getURLhash() {
     let url = location.hash;
-    if(url == ''){
+    if (url == "") {
       url = undefined;
     }
     return url;
   },
   /**
-   * 
+   *
    * @returns documentfragment
    */
-  crearFragmento: function fragmento (){
+  crearFragmento: function fragmento() {
     const documentFragement = document.createDocumentFragment();
     return documentFragement;
   },
-  getParameterByName : function getParameterByName(name) {
+  getParameterByName: function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-    results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-},
-setCounter : function setCounter(nodoTarget,time){
-  const finalCount = parseInt(nodoTarget.getAttribute("data-gsc-count"));
-  let currentCount = 0;
-  const counter = setInterval(() => {
-    if(currentCount > 0){
-      nodoTarget.textContent = currentCount;
-      if(currentCount == finalCount) clearInterval(counter);
+      results = regex.exec(location.search);
+    return results === null
+      ? ""
+      : decodeURIComponent(results[1].replace(/\+/g, " "));
+  },
+  setCounter: function setCounter(nodoTarget, time) {
+    let finalCount = nodoTarget.getAttribute("data-gsc-count");
+    if(finalCount != null){
+      finalCount = parseInt(finalCount);
+      let currentCount = 0;
+      const counter = setInterval(() => {
+        if (currentCount > 0) {
+          nodoTarget.textContent = currentCount;
+          if (currentCount === finalCount) clearInterval(counter);
+        }
+        currentCount++;
+      }, time);
+    }else{
+      console.error(`No has definido la propiedad 'data-gsc-count'`);  
     }
-    currentCount++;
-  }, time);
-}
-
-
-
+    
+  },
 };
 
-
-async function gscFetch (url, callback, mode){
+async function gscFetch(url, callback, mode) {
   const get = await fetch(url);
   let response;
   switch (mode) {
@@ -117,4 +121,3 @@ async function gscFetch (url, callback, mode){
 }
 
 const gscConsole = (e) => console.log(e);
-
