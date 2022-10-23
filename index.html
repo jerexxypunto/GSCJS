@@ -1,36 +1,31 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="smoth-scroll">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GSC-JS</title>
+    <title>GSC Bootstrap</title>
+    <link rel="stylesheet" href="../dist/css/gsc-bootstrap.css">
+    <link rel="shortcut icon" href="../gsc.png" type="image/x-icon">
 </head>
+
 <body>
-    <main>
-        <h1>GSC-JS</h1>
-        <section id="app">
+    <div class="container pb-5">
+        <h1 class="display-4 font-weight-bold">GSCJS - Components</h1>
+        <hr />
+        <h3>Contador</h3>
+        <div class="gsc-counter">
+            <h4>Contador: <span class="gsc-counter__value" data-gsc-count="10"></span></h4>
+        </div>
+        <div id="app">
 
-        </section>
-        <article>
-            <h4 class="item-count" data-gsc-count="10">0</h4>
-            <h4 class="item-count-1" data-gsc-count="100">0</h4>
-        </article>
-    </main>
-    <script src="gscjs.js"></script>
+        </div>
+    </div>
+    <script src="./gscjs.js"></script>
     <script>
-        const app = GSCJS.queryOnly("#app");
-        const fragmento = GSCJS.crearFragmento();
-        
-        GSCJS.setCounter(GSCJS.queryOnly(".item-count"),10);
-        GSCJS.setCounter(GSCJS.queryOnly(".item-count-1"),10);
-
-        for (let i = 1; i < 6 ; i++) {
-            const element = GSCJS.crearNodo(`H${i}`,`Soy una etiqueta H${i}`);
-            fragmento.appendChild(element);            
-        }
-;
-        app.appendChild(fragmento);
+        const gscCounter = GSCJS.setCounter(GSCJS.queryOnly(".gsc-counter__value"), 1000);
     </script>
 </body>
+
 </html>
