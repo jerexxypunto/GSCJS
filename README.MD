@@ -6,55 +6,59 @@
 # Documentación
 Todas las caracteristicas de esta libreria estan dentro de un objeto javaScript llamado <code>GSCJS</code>
 
+Para usar este objeto tiene que instanciar un objeto de la clase GSCJS de la siguiente manera.
+<pre>
+  <code>const gscjs = new GSCJS()</code>
+</pre>
 ## Capturar nodos
 ### QueryOnly
-`GSCJS.queryOnly(element)`
+`gscjs.queryOnly(element)`
 
 Selecciona un solo elemento en le documento y lo retorna
 
 ### QueryAll
-`GSCJS.queryAll(element)`
+`gscjs.queryAll(element)`
 
 Toma un nodeList del DOM y retorna un Array con todos sus elementos
 
 ## Crear nodos
-`GSCJS.crearNodo(tag, txt)`
+`gscjs.crearNodo(tag, txt)`
 
 Esta funcion retorna un nodo HTML con su contenido
 
 ## Gestión de nodos
-`GSCJS.hasClass(target, classname)`
+`gscjs.hasClass(target, classname)`
 Esta funcion retorna true si el nodo objetivo tiene la classe espesificada y false si no tiene la clase.
 
 ## Gestión de URL
 ### Get URL
 Retorna toda la url
 
-`GSCJS.getURL()`
+`gscjs.getURL()`
 ### Get URL Origin
 Retorna solo el dominio de la url
 
-`GSCJS.getURLorigin()`
+`gscjs.getURLorigin()`
 
 ### Get URL Path
 Retorna el Path de la url (lo que le sigue a la extención midominio.com/ruta)
 
-`GSCJS.getURLpath()`
+`gscjs.getURLpath()`
 
 ### Get URL Hash
 Retorna el hash
 
-`GSCJS.getURLhash()`
+`gscjs.getURLhash()`
 
 ### Get Parameter  By Name
 Devuelve los parametros que pasen por GET
 
-`GSCJS.getParameterByName(name)`
+`gscjs.getParameterByName(name)`
 
 ## Fragmentos
 Retorna un documentfragment
 
-`GSCJS.fragmento()`
+`gscjs.fragmento()`
 
 ## JavaScript Asyncono
 Función para comunicarse con una API de forma asincronica
@@ -93,32 +97,33 @@ async function gscFetch (url, callback, mode){
 </pre>
 
 
-# Código
+# Código Fuente
 <pre>
-const GSCJS = {
-  autor: "Jeremías San Martín",
-  web: "https://gscdesigns.net/",
-  /**
+class GSCJS {
+  constructor() { 
+
+   }
+    /**
    * Selecciona un solo elemento en le documeneto
    * @param {nodeHTML} element
    * @returns {NodeHTML}
    */
-  queryOnly: function queryOnly(element) {
+   queryOnly(element) {
     const selection = document.querySelector(element);
     return selection;
-  },
+  }
   /**
    * Toma un nodeList del DOM y retorna un
    * Array con todos sus elementos.
-   * 
+   *
    * @param {NodeList} element
    * @returns {Array}
    */
-  queryAll: function queryAll(element) {
+  queryAll(element) {
     const nodeList = document.querySelectorAll(element);
     const selection = [...nodeList];
     return selection;
-  },
+  }
   /**
    * Esta funcion retorna un nodo HTML con su contenido.
    *
@@ -126,11 +131,11 @@ const GSCJS = {
    * @param {string} txt El contenido de la etiqueta HTML
    * @returns {NodeHTML} Un nodo
    */
-  crearNodo: function crearNodo(tag, txt) {
+  crearNodo(tag, txt) {
     const node = document.createElement(tag);
     node.textContent = txt;
     return node;
-  },
+  }
   /**
    * Esta funcion retorna true si el nodo objetivo tiene la classe
    * espesificada y false si no tiene la clase.
@@ -139,42 +144,66 @@ const GSCJS = {
    * @param {string} classname
    * @returns {boolean}
    */
-  hasClass: function hasClass(target, classname) {
+  hasClass(target, classname) {
     const targetObjet = document.querySelector(target);
     const response = targetObjet.classList.contain(classname);
     return response;
-  },
+  }
   // Retorna toda la URL
-  getURL: function getURL() {
+  getURL() {
     const url = location.href;
     return url;
-  },
+  }
   // Retorna solo la URL
-  getURLorigin: function getURLorigin() {
+  getURLorigin() {
     const url = location.origin;
     return url;
-  },
+  }
   // Retorna la ruta del URL (lo que le sigue a la extención midominio.com/ruta)
-  getURLpath: function getURLpath() {
+  getURLpath() {
     const url = location.pathname;
     return url;
-  },
+  }
   // Retorna el hash
-  getURLhash: function getURLhash() {
+  getURLhash() {
     let url = location.hash;
-    if(url == ''){
+    if (url == "") {
       url = undefined;
     }
     return url;
-  },
+  }
   /**
-   * 
+   *
    * @returns documentfragment
    */
-  crearFragmento: function fragmento (){
+  crearFragmento() {
     const documentFragement = document.createDocumentFragment();
     return documentFragement;
   }
-};
-
+  getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+      results = regex.exec(location.search);
+    return results === null
+      ? ""
+      : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+  setCounter(nodoTarget, time) {
+    let finalCount = nodoTarget.getAttribute("data-gsc-count");
+    if(finalCount != null){
+      finalCount = parseInt(finalCount);
+      let currentCount = 0;
+      const counter = setInterval(() => {
+        if (currentCount > 0) {
+          nodoTarget.textContent = currentCount;
+          if (currentCount === finalCount) clearInterval(counter);
+        }
+        currentCount++;
+      }, time);
+    }else{
+      console.error(`No has definido la propiedad 'data-gsc-count'`);  
+    }
+    
+  }
+}
 </pre>

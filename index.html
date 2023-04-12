@@ -21,6 +21,15 @@
         </div>
     </div>
     <script src="./gscjs.js"></script>
+    <script>
+        const gsc = new GSCJS();
+        const a = gsc.crearNodo("SECTION",'');
+        const app = gsc.queryOnly("#app");
+        app.appendChild(a);
+        a.classList.add("section");
+
+        console.log(gsc.queryOnly(".section"));
+    </script>
 </body>
 
 </html>

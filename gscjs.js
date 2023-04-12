@@ -1,7 +1,21 @@
 class GSCJS {
   constructor() { 
+    this.man = {
+      queryOnly:'Selecciona un Nodo',
+      queryAll:'Selecciona una lista de nodos y lo guarda en Array',
+      crearNodo:' Esta funcion retorna un nodo HTML con su contenido.',
+      hasClass:'Esta funcion retorna true si el nodo objetivo tiene la classe espesificada y false si no tiene la clase.',
+      getURL:'Retorna toda la URL',
+      getURLOrigin:'Retorna solo la URL',
+      getURLpath: 'Retorna el path de una URL',
+      getURLhash:'Retorna el hash',
+      getURLParams:'Retorna un objeto con los parametros de la URL',
+      crearFragmento:'Crea un document fragment',
 
+
+    }
    }
+
    
     /**
    * Selecciona un solo elemento en le documeneto
@@ -9,8 +23,14 @@ class GSCJS {
    * @returns {NodeHTML}
    */
    queryOnly(element) {
-    const selection = document.querySelector(element);
-    return selection;
+    let nodo = document.querySelector(element);
+    if (nodo) {
+      return nodo;
+    } else {
+      setTimeout(() => {
+        return buscarNodo(element);
+      }, 100); // espera 100 milisegundos antes de buscar de nuevo
+    }
   }
   /**
    * Toma un nodeList del DOM y retorna un
@@ -21,8 +41,15 @@ class GSCJS {
    */
   queryAll(element) {
     const nodeList = document.querySelectorAll(element);
-    const selection = [...nodeList];
-    return selection;
+    if (nodeList) {
+      return [...nodeList];
+    } else {
+      setTimeout(() => {
+        return queryAll(element);
+      }, 100); // espera 100 milisegundos antes de buscar de nuevo
+    }
+    
+
   }
   /**
    * Esta funcion retorna un nodo HTML con su contenido.
@@ -72,6 +99,31 @@ class GSCJS {
     }
     return url;
   }
+
+  getURLParams(){
+    // Divide la URL en dos partes: la primera parte es la URL base y la segunda parte son los parámetros de la URL
+    const urlParts = url.split('?');
+
+    // Si la URL no tiene parámetros, no hacemos nada
+    if (urlParts.length === 1) {
+      console.error('La URL no tiene parámetros');
+    } else {
+      // La segunda parte contiene los parámetros, divídelos en un array
+      const queryParams = urlParts[1].split('&');
+      
+      // Crea un objeto para almacenar los parámetros
+      const params = {};
+      
+      // Itera sobre los parámetros y almacena sus valores en el objeto params
+      queryParams.forEach(queryParam => {
+        const [key, value] = queryParam.split('=');
+        params[key] = value;
+      });
+      
+      
+    }
+    return params;
+  }
   /**
    *
    * @returns documentfragment
@@ -80,14 +132,7 @@ class GSCJS {
     const documentFragement = document.createDocumentFragment();
     return documentFragement;
   }
-  getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-      results = regex.exec(location.search);
-    return results === null
-      ? ""
-      : decodeURIComponent(results[1].replace(/\+/g, " "));
-  }
+
   setCounter(nodoTarget, time) {
     let finalCount = nodoTarget.getAttribute("data-gsc-count");
     if(finalCount != null){
@@ -105,6 +150,7 @@ class GSCJS {
     }
     
   }
+  
 }
 
 
